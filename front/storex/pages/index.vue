@@ -1,11 +1,8 @@
 <template>
   <div>
     <v-app>
-      
-      <NavBar />
 
       <product />
-
       <addProduct />
       <PaginationVue />
     </v-app>
@@ -31,3 +28,10 @@ export default {
   },
 }
 </script>
+
+
+<style>
+.v-application--wrap {
+  min-height: 100px;
+}
+</style>

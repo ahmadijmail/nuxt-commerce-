@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="searchh">
     <template>
       <v-toolbar
         color="light-blue
 "
       >
-        <v-col cols="2" class="titless">StoreX</v-col>
+        <v-col cols="2" class="titless"  @click="$router.push(`/`)">StoreX</v-col>
         <v-col cols="6">
           <v-text-field
-          v-model="words"
+            v-model="words"
             hide-no-data
             hide-details
             label="What are you looking for?"
@@ -65,7 +65,6 @@
         </v-btn>
       </v-toolbar>
     </template>
-
   </div>
 </template>
 
@@ -76,7 +75,7 @@ export default {
 
   data() {
     return {
-        words: '',
+      words: '',
       date: '',
       items: [],
       menu: '',
@@ -103,5 +102,13 @@ export default {
 }
 .titless {
   font-size: xx-large;
+}
+
+::v-deep .v-application--wrap {
+  min-height: 0;
+}
+
+.searchh{
+  margin-top: 10px;
 }
 </style>

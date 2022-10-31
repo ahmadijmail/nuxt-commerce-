@@ -3,7 +3,6 @@
     <v-pagination
       v-model="page"
       :length="pages"
-      @input="pagnation"
     ></v-pagination>
   </div>
 </template>
@@ -13,17 +12,13 @@ export default {
   data() {
     return {
       page: 1,
+      
     }
   },
 
   methods: {
     ...mapActions(['fetchProducts']),
-    pagnation(page) {
-      this.fetchProducts({
-        offset: page,
-        limit: 3,
-      })
-    },
+
   },
 
   computed: {
@@ -31,5 +26,14 @@ export default {
       pages: 'getpages',
     }),
   },
+
+  watch:{
+    page(){
+        this.fetchProducts({
+        offset: this.page,
+        limit: 3,
+      })
+    }
+  }
 }
 </script>

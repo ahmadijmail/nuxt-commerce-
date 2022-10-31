@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-dialog v-model="dialogeStatus" persistent max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" id="updatebtn" dark v-bind="attrs" v-on="on">
+          <v-btn   color="primary" id="updatebtn" dark v-bind="attrs" v-on="on" >
             Update Product
           </v-btn>
         </template>

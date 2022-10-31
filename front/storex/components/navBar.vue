@@ -1,8 +1,8 @@
 <template>
-  <div >
-    <v-row  class="big_container"> 
-      <v-col cols="12" >
-        <SearchBar  />
+  <div>
+    <v-row class="big_container">
+      <v-col cols="12">
+        <SearchBar />
       </v-col>
     </v-row>
   </div>
@@ -37,7 +37,6 @@ export default {
 <style lang="css" scoped>
 * {
   padding: 0;
-  margin: 0;
 }
 .container-app {
   width: 100%;
@@ -45,8 +44,6 @@ export default {
 
 .big_container {
   width: 100%;
-
-
 
 }
 </style>
