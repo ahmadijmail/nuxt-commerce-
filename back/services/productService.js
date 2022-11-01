@@ -2,7 +2,18 @@ const { sequelize } = require("../models/index");
 
 const createProductService = async (ProductDTO) => {
   try {
+
     return await sequelize.models.Product.create(ProductDTO);
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+const createCartService = async (createCart) => {
+  try {
+    console.log(createCart);
+    return await sequelize.models.Cart.create(createCart);
   } catch (error) {
     throw error;
   }
@@ -48,4 +59,5 @@ module.exports = {
   createProductService,
   updateRecordStatus,
   updateUsers,
+  createCartService
 };

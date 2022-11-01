@@ -6,6 +6,7 @@ const {
   createProductService,
   updateRecordStatus,
   updateUsers,
+  createCartService,
 } = require("../../services/productService");
 const { createUserService } = require("../../services/users");
 const { whereINDataType, wherINJSON } = require("../../shared/queryBuilder");
@@ -133,11 +134,57 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const addTocart = async (req, res) => {
+  try {
+    let { name, price, image } = req.body;
+    console.log(req.body);
+    const id = uuid.v4();
+    const createCart = {
+      id,
+      name,
+      price,
+      image,
+    };
+
+    const newCart = await createCartService(createCart);
+    res.status(201).json(newCart);
+  } catch (error) {
+    res.status(400).json(error.stack);
+  }
+};
+
+const getCart = async (req, res) => {
+  try {
+    let { id, name, price, recordStatus } = req.body;
+    if (!recordStatus) recordStatus = "LATEST";
+
+    let cart = await sequelize.models.Cart.findAndCountAll({
+      where: {
+        [Op.and]: [
+          id ? whereINDataType("id", "eq", id) : "",
+          name ? whereINDataType("name", "like", name) : "",
+          price ? whereINDataType("name", "like", price) : "",
+          whereINDataType("recordStatus", "eq", recordStatus),
+        ],
+      },
+    });
+
+    let totalprices = 0;
+    cart.rows.map((el) => (totalprices += el.price));
+
+    res.status(200).json({ totalprices: totalprices, ...cart });
+  } catch (error) {
+    res.status(400).json(error.stack);
+  }
+};
+
 module.exports = {
   createProduct,
   getProducts,
   deleteProduct,
   updateProduct,
+  addTocart,
+  getCart,
 };
 
 const setCorrentQueryAccordRange = (dueDateFrom, dueDateTO) => {
@@ -152,7 +199,6 @@ const setCorrentQueryAccordRange = (dueDateFrom, dueDateTO) => {
 
 const assigneUsersToTask = async (id, users) => {
   try {
-    // we  assume  the  users  array will reveive  as  [ {id:"abc" , name:"firas"}]
     let response = [];
     for (let i = 0; i < users.length; i++) {
       const element = users[i];
@@ -209,8 +255,6 @@ const findproductsIdsByUserId = async (id) => {
 
 const getCurrentDateAndTime = () => {
   try {
-    // this function dont take any parametrs and its  return the  current
-    // date and  time
     let today = new Date();
     let CurrentDate = new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000

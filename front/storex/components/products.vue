@@ -86,7 +86,7 @@ export default {
     ...mapActions(['fetchProducts', 'deleteProduct']),
     ...mapMutations(['dialogemut']),
     async deletep(id) {
-      console.log(id)
+   
       await this.deleteProduct(id)
     },
 

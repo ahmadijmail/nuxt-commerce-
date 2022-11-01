@@ -84,7 +84,6 @@ export default {
   methods: {
     ...mapActions(['fetchProducts']),
     searchbutton() {
-      console.log(this.words, 'dateeee')
       let searchdata = {
         dateFrom: this.date[0],
         dateTo: this.date[1],

@@ -6,17 +6,30 @@ const mainstore = {
     products: [],
     dialoge: false,
     pages: 1,
+    cartItems:[]
   },
 
   actions: {
     async fetchProducts({ commit }, search) {
-      console.log(search, 'ssssss')
       try {
         let data = await axios.post(
           'http://localhost:30202/products/getProducts',
           search
         )
         commit('fetchTask', data.data)
+        return data.data.rows
+      } catch (error) {
+        alert(error)
+        console.log(error)
+      }
+    },
+    async fetchCart({ commit }) {
+      try {
+        let data = await axios.post(
+          'http://localhost:30202/products/getcart',
+          
+        )
+        commit('getCart', data.data)
         return data.data.rows
       } catch (error) {
         alert(error)
@@ -30,10 +43,7 @@ const mainstore = {
           'http://localhost:30202/products/createProduct',
           product
         )
-
         commit('addProduct1', data.data)
-
-        console.log(data)
         return data
       } catch (error) {
         alert(error)
@@ -42,7 +52,6 @@ const mainstore = {
     },
 
     async deleteProduct({ commit }, id) {
-      console.log(id)
       commit('deleteProduct', id)
       try {
         let data = await axios.post(
@@ -72,6 +81,12 @@ const mainstore = {
   },
 
   mutations: {
+
+    getCart(state, payload) {
+      console.log(payload);
+      return (state.cartItems = payload)
+    },
+
     fetchTask(state, payload) {
       return (state.products = payload.rows), (state.pages = payload.pages)
     },
@@ -101,7 +116,7 @@ const mainstore = {
     getProducts: (state) => state.products,
     openDialoge: (state) => state.dialoge,
     getpages: (state) => state.pages,
-  
+    getCart:(state)=> state.cartItems
   },
 }
 export default mainstore
