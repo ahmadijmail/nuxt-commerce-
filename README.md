@@ -1,10 +1,6 @@
 # nuxt-commerce-
 
 
-
-ShoppingApp
-Deployed Link
-
 Technologies that has been used in this Project:
 
 Nuxt 
