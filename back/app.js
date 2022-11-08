@@ -15,7 +15,9 @@ app.use(cors());
 const taskRoute = require("./rourter/route/taskRoute");
 
 app.use("/products", taskRoute);
-
+app.get("/", (req, res) => {
+  res.send("welcome");
+});
 ///////////////////////////////////////////////////////
 
 const PORT = process.env.PORT;
